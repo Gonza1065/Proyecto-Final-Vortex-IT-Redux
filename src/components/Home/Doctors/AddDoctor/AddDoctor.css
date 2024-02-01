@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+.title-add-doctor {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.form-add-doctor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+.form-add-doctor input {
+  padding: 10px;
+  margin: 10px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 15px;
+  border: 0px solid black;
+  text-align: center;
+}

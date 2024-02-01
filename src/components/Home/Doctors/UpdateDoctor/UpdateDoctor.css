@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+.svg-icon-back svg {
+  position: absolute;
+  height: 40px;
+  left: 10%;
+  color: black;
+}
+.form-update-doctor {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+}
+.form-update-doctor input {
+  padding: 10px;
+  margin: 10px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 15px;
+  border: 0px solid black;
+  text-align: center;
+}
+.title-update-doctor {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.btn-update-doctor {
+  margin-top: 10px;
+}
+.btn-update-doctor button {
+  border: 1px solid #1976d2;
+}
+.btn-update-doctor button:hover {
+  transition: 0.5s;
+  background-color: #002f5e;
+  color: #4da6ff;
+}

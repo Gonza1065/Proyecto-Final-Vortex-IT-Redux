@@ -1,0 +1,7 @@
+.url-not-found {
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
