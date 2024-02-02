@@ -1,22 +1,21 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Header } from "../NavBar/Header/Header";
-export function Doctors() {
+
+export function Specialties() {
   const role = useSelector((state) => state.users.role);
   return (
     <>
-      <Header />
       {role === "admin" ? (
         <>
           <div className="navegation">
-            <Link to="/ver-doctores">Ver Doctores</Link>
-            <Link to="/añadir-doctor">Añadir doctor</Link>
+            <Link to="/ver-especialidades">Ver Especialidades</Link>
+            <Link to="/añadir-especialidad">Añadir Especialidad</Link>
           </div>
         </>
       ) : role === "patient" ? (
         <>
           <div className="navegation">
-            <Link to="/ver-doctores">Ver Doctores</Link>
+            <Link to="/ver-especialidades">Ver Especialidades</Link>
           </div>
         </>
       ) : null}

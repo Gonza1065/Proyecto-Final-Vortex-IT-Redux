@@ -23,6 +23,7 @@ export function GetDoctors() {
         .then((res) => res.json())
         .then((data) => {
           if (data.message) {
+            console.log(data);
             setMessage(data.message);
           } else {
             dispatch(getDoctors(data));
@@ -35,36 +36,30 @@ export function GetDoctors() {
     <>
       <Header />
       <section className="cards-doctors">
-        {message ? (
-          <div className="message">
-            <h1>{message}</h1>
-          </div>
-        ) : (
-          doctors.map((doctor) => (
-            <>
-              <article className="card-doctor">
-                <div className="doctor-name">
-                  <h1>{doctor.name}</h1>
-                </div>
-                <div className="doctor-last-name">
-                  <h1>{doctor.lastName}</h1>
-                </div>
-                <div className="doctor-specialty">
-                  <h1>{doctor.specialty.specialty}</h1>
-                </div>
-                {role === "admin" ? (
-                  <>
-                    <div className="btn-update">
-                      <Link to={`/actualizar-doctor/${doctor._id}`}>
-                        <FontAwesomeIcon icon={faPencil} />
-                      </Link>
-                    </div>
-                  </>
-                ) : null}
-              </article>
-            </>
-          ))
-        )}
+        {doctors.map((doctor) => (
+          <>
+            <article className="card-doctor">
+              <div className="doctor-name">
+                <h1>{doctor.name}</h1>
+              </div>
+              <div className="doctor-last-name">
+                <h1>{doctor.lastName}</h1>
+              </div>
+              <div className="doctor-specialty">
+                <h1>{message ? { message } : doctor.specialty.specialty}</h1>
+              </div>
+              {role === "admin" ? (
+                <>
+                  <div className="btn-update">
+                    <Link to={`/actualizar-doctor/${doctor._id}`}>
+                      <FontAwesomeIcon icon={faPencil} />
+                    </Link>
+                  </div>
+                </>
+              ) : null}
+            </article>
+          </>
+        ))}
       </section>
     </>
   );

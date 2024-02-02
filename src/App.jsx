@@ -9,6 +9,9 @@ import { Doctors } from "./components/Home/Doctors/Doctors";
 import { GetDoctors } from "./components/Home/Doctors/GetDoctors/GetDoctors";
 import { UpdateDoctor } from "./components/Home/Doctors/UpdateDoctor/UpdateDoctor";
 import { AddDoctor } from "./components/Home/Doctors/AddDoctor/AddDoctor";
+import { Specialties } from "./components/Home/Specialties/Specialties";
+import { GetSpecialties } from "./components/Home/Specialties/GetSpecialties/GetSpecialties";
+import { UpdateSpecialty } from "./components/Home/Specialties/UpdateSpecialty/UpdateSpecialty";
 function App() {
   const token = useSelector((state) => state.users.token);
   return (
@@ -22,6 +25,12 @@ function App() {
               <Route path="/ver-doctores" element={<GetDoctors />} />
               <Route path="/actualizar-doctor/:id" element={<UpdateDoctor />} />
               <Route path="/añadir-doctor" element={<AddDoctor />} />
+              <Route path="/especialidades" element={<Specialties />} />
+              <Route path="/ver-especialidades" element={<GetSpecialties />} />
+              <Route
+                path="/actualizar-especialidad/:id"
+                element={<UpdateSpecialty />}
+              />
             </>
           ) : (
             <>

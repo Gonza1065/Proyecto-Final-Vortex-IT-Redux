@@ -1,0 +1,14 @@
+.specialties {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  text-align: center;
+  align-items: center;
+  height: 80vh;
+}
+.specialty {
+  background-color: #ff8d8d;
+  margin: 20px;
+  border-radius: 15px;
+  font-family: "Roboto", sans-serif;
+  padding: 15px;
+}

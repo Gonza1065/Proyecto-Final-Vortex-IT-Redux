@@ -1,0 +1,19 @@
+.title-update-specialty {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.form-update-specialty {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+}
+.form-update-specialty input {
+  padding: 10px;
+  margin: 10px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 15px;
+  border: 0px solid black;
+  text-align: center;
+}

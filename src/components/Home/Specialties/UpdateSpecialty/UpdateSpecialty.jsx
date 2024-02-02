@@ -1,17 +1,15 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./UpdateDoctor.css";
-import { Button } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "./UpdateSpecialty.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export function UpdateDoctor() {
+export function UpdateSpecialty() {
   const [formData, setFormData] = useState({
-    name: "",
-    lastName: "",
     specialty: "",
   });
   const { id } = useParams();
@@ -19,15 +17,13 @@ export function UpdateDoctor() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/doctors/${id}`, {
+    fetch(`http://localhost:5000/api/specialty/${id}`, {
       headers: { "Content-Type": "application/json", "x-access-token": token },
     })
       .then((res) => res.json())
       .then((data) => {
         setFormData({
-          name: data.name,
-          lastName: data.lastName,
-          specialty: data.specialty.specialty,
+          specialty: data.specialty,
         });
       })
       .catch((err) => console.log(err));
@@ -36,7 +32,7 @@ export function UpdateDoctor() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:5000/api/doctors/update-doctor/${id}`,
+      `http://localhost:5000/api/specialty/update-specialty/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -47,7 +43,7 @@ export function UpdateDoctor() {
       }
     );
     if (response.ok) {
-      navigate("/ver-doctores");
+      navigate("/ver-especialidades");
     } else {
       const data = await response.json();
       const { message } = data;
@@ -63,28 +59,14 @@ export function UpdateDoctor() {
   return (
     <>
       <div className="svg-icon-back">
-        <Link to="/ver-doctores">
+        <Link to="/ver-especialidades">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
       </div>
-      <div className="title-update-doctor">
-        <h1>Actualizar Doctor</h1>
+      <div className="title-update-specialty">
+        <h1>Actualizar Especialidad</h1>
       </div>
-      <form className="form-update-doctor" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          placeholder="Apellido"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit} className="form-update-specialty">
         <input
           type="text"
           placeholder="Especialidad"
@@ -92,10 +74,8 @@ export function UpdateDoctor() {
           value={formData.specialty}
           onChange={handleChange}
         />
-        <div className="btn-update-doctor">
-          <Button variant="text" type="submit">
-            Update
-          </Button>
+        <div className="btn-update">
+          <Button type="submit">Actualizar Especialidad</Button>
         </div>
       </form>
       <ToastContainer />
