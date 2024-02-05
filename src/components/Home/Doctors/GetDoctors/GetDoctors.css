@@ -21,15 +21,19 @@
 .btn-update a {
   color: black;
   cursor: pointer;
+  margin: 10px;
 }
 .btn-update a svg {
   height: 30px;
 }
 .message {
   display: flex;
-  align-items: center;
-  height: 80vh;
-  text-align: center;
+  justify-content: center;
+  text-decoration: underline;
   font-size: 30px;
   font-family: "Roboto", sans-serif;
+}
+.btn-see-detail-doctor a {
+  color: black;
+  cursor: pointer;
 }

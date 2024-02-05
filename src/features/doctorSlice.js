@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   doctors: [],
+  appointmentsByDoctor: [],
 };
 
 export const doctorSlice = createSlice({
@@ -14,7 +15,11 @@ export const doctorSlice = createSlice({
     updateDoctor: (state, action) => {
       state.doctors = action.payload;
     },
+    getAppointmentsByDoctor: (state, action) => {
+      state.appointmentsByDoctor = action.payload;
+    },
   },
 });
 
-export const { getDoctors, updateDoctor } = doctorSlice.actions;
+export const { getDoctors, updateDoctor, getAppointmentsByDoctor } =
+  doctorSlice.actions;

@@ -1,25 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 .navegation {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: start;
   text-align: center;
-  align-items: center;
-  height: 100vh;
+  grid-template-columns: repeat(2, 50%);
   font-family: "Roboto", sans-serif;
-  background-color: #f6d5dd;
-  margin: 0;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 .navegation a {
   color: black;
   margin: 50px;
-  font-size: 25px;
+  font-size: 20px;
 }
 .navegation .btn-nav-bar-logout {
   color: #ff4070;
-  position: fixed;
-  top: 0;
-  right: 0;
+}
+.btn-logout {
+  justify-content: end;
+  text-align: end;
 }

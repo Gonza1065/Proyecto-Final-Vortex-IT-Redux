@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctors } from "../../../../features/doctorSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPencil } from "@fortawesome/free-solid-svg-icons";
 import "./GetDoctors.css";
 import { Link } from "react-router-dom";
-import { Header } from "../../NavBar/Header/Header";
+import { Spinner } from "../../Spinner/Spinner";
 export function GetDoctors() {
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(true);
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const doctors = useSelector((state) => state.doctors.doctors);
@@ -26,15 +27,28 @@ export function GetDoctors() {
             console.log(data);
             setMessage(data.message);
           } else {
+            setLoading(false);
             dispatch(getDoctors(data));
           }
         })
         .catch((err) => console.log(err));
     }
   }, [dispatch, token]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (message) {
+    return (
+      <div className="message">
+        <h1>{message}</h1>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Header />
       <section className="cards-doctors">
         {doctors.map((doctor) => (
           <>
@@ -46,13 +60,24 @@ export function GetDoctors() {
                 <h1>{doctor.lastName}</h1>
               </div>
               <div className="doctor-specialty">
-                <h1>{message ? { message } : doctor.specialty.specialty}</h1>
+                <h1>{doctor.specialty.specialty}</h1>
               </div>
               {role === "admin" ? (
                 <>
                   <div className="btn-update">
                     <Link to={`/actualizar-doctor/${doctor._id}`}>
                       <FontAwesomeIcon icon={faPencil} />
+                    </Link>
+                    <Link to={`/ver-turnos-doctor/${doctor._id}`}>
+                      <FontAwesomeIcon icon={faEye} />
+                    </Link>
+                  </div>
+                </>
+              ) : role === "patient" ? (
+                <>
+                  <div className="btn-see-detail-doctor">
+                    <Link to={`/ver-doctor/${doctor._id}`}>
+                      <FontAwesomeIcon icon={faEye} />
                     </Link>
                   </div>
                 </>

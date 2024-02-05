@@ -1,0 +1,18 @@
+.title-cancelations {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.appointment-cancel {
+  background-color: aquamarine;
+  font-family: "Roboto", sans-serif;
+  margin: 15px 15px;
+  padding: 25px;
+  border-radius: 25px;
+}
+.date-day-month-appointment-cancel h1 {
+  font-weight: 300;
+}
+.appointments {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+}

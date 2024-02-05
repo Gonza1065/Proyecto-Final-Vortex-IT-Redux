@@ -1,0 +1,19 @@
+.patients {
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  place-content: center;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.patient {
+  background-color: rgb(0, 255, 242);
+  margin: 25px;
+  border-radius: 15px;
+  padding: 50px;
+}
+.btn-see-cancelations button {
+  background-color: rgb(0, 138, 143);
+}
+.btn-see-cancelations button a {
+  color: black;
+}

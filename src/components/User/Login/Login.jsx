@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { storeRole, storeToken } from "../../../features/userSlice";
+import { storeId, storeRole, storeToken } from "../../../features/userSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
@@ -32,6 +32,7 @@ export function Login() {
         const { token, existingUser } = data;
         dispatch(storeToken(token));
         dispatch(storeRole(existingUser.role));
+        dispatch(storeId(existingUser._id));
         // setLoading(false);
         navigate("/");
       }
