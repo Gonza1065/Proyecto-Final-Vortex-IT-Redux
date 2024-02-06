@@ -1,22 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 .navegation {
   display: flex;
   justify-content: start;
   text-align: center;
   grid-template-columns: repeat(2, 50%);
   font-family: "Roboto", sans-serif;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #053d47;
+  border-bottom: 3px solid #053d47;
+  border-radius: 15px;
+  box-shadow: 1px 10px 20px black;
 }
 .navegation a {
-  color: black;
+  color: white;
   margin: 50px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 300;
+  border: 1px solid #00a2ad;
+  padding: 15px;
+  border-radius: 10px;
+}
+.navegation a:hover {
+  background-color: #00a2ad;
+  transition: 0.5s;
 }
 .navegation .btn-nav-bar-logout {
-  color: #ff4070;
+  color: #60fffc;
+  font-weight: 600;
 }
-.btn-logout {
-  justify-content: end;
-  text-align: end;
+.navegation .btn-nav-bar-logout:hover {
+  color: white;
+  background-color: #125b67;
 }

@@ -2,3 +2,12 @@
   text-align: center;
   font-family: "Roboto", sans-serif;
 }
+.btn-update-delete-appointment {
+  margin-top: 10px;
+}
+.btn-update-delete-appointment button {
+  background-color: aquamarine;
+}
+.btn-update-delete-appointment button a {
+  color: black;
+}

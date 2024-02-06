@@ -15,7 +15,8 @@ export function NavBar() {
             <div>
               <Link to="/">Inicio</Link>
               <Link to="/doctores">Doctores</Link>
-              <Link to="/turnos">Turnos</Link>
+              {role === "admin" ? <Link to="/turnos">Turnos</Link> : ""}
+
               <Link to="/especialidades">Especialidades</Link>
             </div>
             <div className="btn-logout">

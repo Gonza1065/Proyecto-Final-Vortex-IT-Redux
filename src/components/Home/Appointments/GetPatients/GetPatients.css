@@ -11,9 +11,10 @@
   border-radius: 15px;
   padding: 50px;
 }
-.btn-see-cancelations button {
+.btn button {
   background-color: rgb(0, 138, 143);
+  margin: 5px;
 }
-.btn-see-cancelations button a {
+.btn button a {
   color: black;
 }

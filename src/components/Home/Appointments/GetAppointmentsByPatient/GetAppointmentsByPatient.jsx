@@ -1,19 +1,20 @@
-import { useParams } from "react-router-dom";
-import "./GetCancelations.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCancelations } from "../../../../features/patientSlice";
+import { useParams } from "react-router-dom";
+import { getAppointments } from "../../../../features/patientSlice";
+import "./GetAppointmentsByPatient.css";
 import { Spinner } from "../../Spinner/Spinner";
-export function GetCancelations() {
+
+export function GetAppointmentsByPatient() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
+  const appointments = useSelector((state) => state.patients.appointments);
   const dispatch = useDispatch();
-  const cancelations = useSelector((state) => state.patients.cancelations);
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/appointment/all-cancelations-by-patient/${id}`,
+      `http://localhost:5000/api/appointment/get-appointments-by-patients/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +29,7 @@ export function GetCancelations() {
           setMessage(data.message);
         } else {
           setLoading(false);
-          dispatch(getCancelations(data));
+          dispatch(getAppointments(data));
         }
       })
       .catch((err) => console.log(err));
@@ -40,40 +41,30 @@ export function GetCancelations() {
 
   return (
     <>
-      <div className="title-cancelations">
-        <h1>Cancelaciones</h1>
+      <div className="title-get-appointments-by-patient">
+        <h1>Turnos por pacientes</h1>
       </div>
       <section className="appointments">
         {message ? (
-          <>
-            <div className="message">
-              <h1>{message}</h1>
-            </div>
-          </>
+          <div className="message">
+            <h1>{message}</h1>
+          </div>
         ) : (
-          cancelations.map((cancelation) => (
+          appointments.map((appointment) => (
             <>
               <article className="appointment">
                 <div className="date-day-month-appointment">
                   <h1>
-                    <strong>{cancelation.day}</strong>/
-                    <strong>{cancelation.month}</strong>,{" "}
-                    <strong>{cancelation.date}</strong> hrs.
+                    <strong>{appointment.day}</strong>/
+                    <strong>{appointment.month}</strong>,{" "}
+                    <strong>{appointment.date}</strong> hrs.
                   </h1>
                   <h1>
-                    Doctor:{" "}
-                    <strong>
-                      {cancelation.doctor.lastName}, {cancelation.doctor.name}
-                    </strong>
+                    Doctor: <strong>{appointment.doctor.lastName}</strong>,{" "}
+                    <strong>{appointment.doctor.name}</strong>
                   </h1>
                   <h1>
-                    Paciente:{" "}
-                    <strong>
-                      {cancelation.patient.name}, {cancelation.patient.lastName}
-                    </strong>
-                  </h1>
-                  <h1>
-                    Estatus: <strong>{cancelation.status}</strong>
+                    Estatus: <strong>{appointment.status}</strong>
                   </h1>
                 </div>
               </article>

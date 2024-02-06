@@ -1,0 +1,8 @@
+.nav-bar-specialties {
+  display: flex;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}

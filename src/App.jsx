@@ -18,6 +18,10 @@ import { AddAppointment } from "./components/Home/Appointments/AddAppointment/Ad
 import { GetPatients } from "./components/Home/Appointments/GetPatients/GetPatients";
 import { GetCancelations } from "./components/Home/Appointments/GetCancelations/GetCancelations";
 import { GetAppointmentsByDoctor } from "./components/Home/Appointments/GetAppointmentsByDoctor/GetAppointmentsByDoctor";
+import { UpdateAppointment } from "./components/Home/Appointments/UpdateAppointment/UpdateAppointment";
+import { GetAppointmentsByPatient } from "./components/Home/Appointments/GetAppointmentsByPatient/GetAppointmentsByPatient";
+import { ForgotPassword } from "./components/User/ForgotPassword/ForgotPassword";
+import { ResetPassword } from "./components/User/ResetPassword/ResetPassword";
 function App() {
   const token = useSelector((state) => state.users.token);
   return (
@@ -49,11 +53,24 @@ function App() {
                 path="/ver-turnos-doctor/:id"
                 element={<GetAppointmentsByDoctor />}
               />
+              <Route
+                path="/actualizar-turno/:id"
+                element={<UpdateAppointment />}
+              />
+              <Route
+                path="/ver-turnos-paciente/:id"
+                element={<GetAppointmentsByPatient />}
+              />
             </>
           ) : (
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPassword />}
+              />
             </>
           )}
           <Route path="*" element={<URLNotFound />} />

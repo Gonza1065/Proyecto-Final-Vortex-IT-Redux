@@ -12,6 +12,7 @@ export function GetSpecialties() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const token = useSelector((state) => state.users.token);
+  const role = useSelector((state) => state.users.role);
   const dispatch = useDispatch();
   const specialties = useSelector((state) => state.specialties.specialties);
   useEffect(() => {
@@ -50,11 +51,13 @@ export function GetSpecialties() {
               <div>
                 <h1>{specialty.specialty}</h1>
               </div>
-              <div className="btn-update">
-                <Link to={`/actualizar-especialidad/${specialty._id}`}>
-                  <FontAwesomeIcon icon={faPencil} />
-                </Link>
-              </div>
+              {role === "admin" && (
+                <div className="btn-update">
+                  <Link to={`/actualizar-especialidad/${specialty._id}`}>
+                    <FontAwesomeIcon icon={faPencil} />
+                  </Link>
+                </div>
+              )}
             </article>
           </>
         ))}

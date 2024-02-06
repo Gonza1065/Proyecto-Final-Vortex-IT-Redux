@@ -1,0 +1,27 @@
+.title-update-appointment {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+.form-update-appointment {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+}
+.form-update-appointment input {
+  padding: 10px;
+  margin: 10px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 15px;
+  border: 0px solid black;
+  text-align: center;
+}
+.btn-update-appointment button {
+  border: 1px solid #1976d2;
+}
+.btn-update-appointment button:hover {
+  transition: 0.5s;
+  background-color: #002f5e;
+  color: #4da6ff;
+}

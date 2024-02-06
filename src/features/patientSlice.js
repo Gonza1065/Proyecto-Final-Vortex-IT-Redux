@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   patients: [],
   cancelations: [],
+  appointments: [],
 };
 
 export const patientSlice = createSlice({
@@ -15,7 +16,11 @@ export const patientSlice = createSlice({
     getCancelations: (state, action) => {
       state.cancelations = action.payload;
     },
+    getAppointments: (state, action) => {
+      state.appointments = action.payload;
+    },
   },
 });
 
-export const { getPatients, getCancelations } = patientSlice.actions;
+export const { getPatients, getCancelations, getAppointments } =
+  patientSlice.actions;

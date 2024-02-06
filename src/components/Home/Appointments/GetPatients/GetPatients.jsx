@@ -5,6 +5,7 @@ import "./GetPatients.css";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Spinner } from "../../Spinner/Spinner";
+import { motion } from "framer-motion";
 
 export function GetPatients() {
   const [loading, setLoading] = useState(true);
@@ -32,18 +33,28 @@ export function GetPatients() {
       <section className="patients">
         {patients.map((patient) => (
           <>
-            <article className="patient">
+            <motion.article
+              className="patient"
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <h1>
                 {patient.lastName}, {patient.name}
               </h1>
-              <div className="btn-see-cancelations">
+              <div className="btn">
                 <Button>
                   <Link to={`/ver-cancelaciones-paciente/${patient._id}`}>
                     Ver Cancelaciones
                   </Link>
                 </Button>
+                <Button>
+                  <Link to={`/ver-turnos-paciente/${patient._id}`}>
+                    Ver Turnos
+                  </Link>
+                </Button>
               </div>
-            </article>
+            </motion.article>
           </>
         ))}
       </section>

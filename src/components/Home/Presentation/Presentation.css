@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap");
 .body-presentation {
   display: grid;
   grid-template-columns: repeat(2, 50%);
@@ -7,7 +9,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Roboto", sans-serif;
+  text-shadow: 20px 20px 6px grey;
+  font-family: "Dosis", sans-serif;
+}
+.presentation-title h1 {
+  font-weight: 400;
+}
+.presentation-title h1 span {
+  color: rgb(247, 201, 0);
 }
 .img-doctor-presentation img {
   height: 350px;
@@ -25,8 +34,9 @@
 }
 .card-presentation-1 h1 {
   padding: 10px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Dosis", sans-serif;
   text-decoration: underline;
+  font-weight: 400;
 }
 .card-presentation-2 {
   margin-bottom: 60px;
@@ -35,8 +45,9 @@
 }
 .card-presentation-2 h1 {
   padding: 10px;
-  font-family: "Roboto", sans-serif;
   text-decoration: underline;
+  font-family: "Dosis", sans-serif;
+  font-weight: 400;
 }
 .card-presentation-3 {
   margin-bottom: 60px;
@@ -45,8 +56,9 @@
 }
 .card-presentation-3 h1 {
   padding: 10px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Dosis", sans-serif;
   text-decoration: underline;
+  font-weight: 400;
 }
 .title {
   text-align: start;
@@ -55,7 +67,4 @@
   font-family: "Roboto", sans-serif;
   padding-left: 10px;
   padding-right: 10px;
-}
-.card-text h5 {
-  font-weight: 300;
 }

@@ -1,3 +1,5 @@
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TextField, Button, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -36,14 +38,26 @@ export function Signup() {
     <>
       <Paper
         elevation={3}
-        style={{ padding: 20, maxWidth: 300, margin: "auto", marginTop: 50 }}
+        style={{
+          padding: 20,
+          maxWidth: 300,
+          margin: "auto",
+          marginTop: 50,
+          backgroundColor: "#053d47",
+          color: "white",
+          border: "3px solid #00a2ad",
+          boxShadow: "5px 5px 20px black",
+        }}
       >
-        <Typography variant="h5" gutterBottom>
-          Signup
-        </Typography>
+        <div className="header-users">
+          <Typography variant="h5" gutterBottom>
+            Registro de Usuario
+          </Typography>
+          <FontAwesomeIcon icon={faUser} />
+        </div>
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Name"
+            label="Nombre"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -52,7 +66,7 @@ export function Signup() {
             onChange={handleChange}
           />
           <TextField
-            label="Last Name"
+            label="Apellido"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -71,7 +85,7 @@ export function Signup() {
             onChange={handleChange}
           />
           <TextField
-            label="Password"
+            label="Contraseña"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -81,7 +95,7 @@ export function Signup() {
             onChange={handleChange}
           />
           <TextField
-            label="Role"
+            label="Rol"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -90,13 +104,13 @@ export function Signup() {
             onChange={handleChange}
           />
           <Button variant="contained" color="primary" fullWidth type="submit">
-            Signup
+            Registrarme
           </Button>
         </form>
         <Link to="/login">
           <div className="btn-login-signup">
             <Button variant="outlined" href="#outlined-buttons">
-              Already do you an account?
+              ¿Tienes una cuenta?
             </Button>
           </div>
         </Link>

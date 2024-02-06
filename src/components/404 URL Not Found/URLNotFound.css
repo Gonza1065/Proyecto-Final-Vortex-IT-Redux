@@ -1,7 +1,25 @@
 .url-not-found {
   display: flex;
   justify-content: center;
-  place-items: center;
+  left: 30%;
   flex-direction: column;
   height: 100vh;
+  font-family: "Dosis", sans-serif;
+  position: fixed;
+}
+.url-not-found h1 {
+  font-size: 350px;
+}
+.url-not-found span {
+  color: rgb(71, 71, 71);
+}
+.url-not-found span:hover {
+  color: aqua;
+  transition: 0.5s;
+}
+.url-not-found h5 {
+  position: fixed;
+  top: 80%;
+  font-size: 20px;
+  text-decoration: underline;
 }
