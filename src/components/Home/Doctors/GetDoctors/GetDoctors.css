@@ -7,7 +7,7 @@
 }
 .cards-doctors {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(3, 33.3%);
   text-align: center;
   font-family: "Roboto", sans-serif;
   font-size: 20px;
@@ -36,4 +36,9 @@
 .btn-see-detail-doctor a {
   color: black;
   cursor: pointer;
+}
+.pagination {
+  margin-bottom: 15px;
+  position: fixed;
+  left: 40%;
 }

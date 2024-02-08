@@ -20,6 +20,9 @@ export function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.lastName || !formData.specialty) {
+      return toast.error("Todos los campos son requeridos");
+    }
     const response = await fetch(
       "http://localhost:5000/api/doctors/add-doctor",
       {
@@ -79,9 +82,6 @@ export function AddDoctor() {
         />
         <Button type="submit">Añadir Doctor</Button>
       </form>
-      {/* <div>
-        <h1>{message}</h1>
-      </div> */}
       <ToastContainer />
     </>
   );

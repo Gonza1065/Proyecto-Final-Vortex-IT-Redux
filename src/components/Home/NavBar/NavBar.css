@@ -12,6 +12,8 @@
   border-bottom: 3px solid #053d47;
   border-radius: 15px;
   box-shadow: 1px 10px 20px black;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .navegation a {
   color: white;

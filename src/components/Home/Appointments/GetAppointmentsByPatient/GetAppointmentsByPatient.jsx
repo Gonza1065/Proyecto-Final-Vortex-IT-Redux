@@ -4,17 +4,20 @@ import { useParams } from "react-router-dom";
 import { getAppointments } from "../../../../features/patientSlice";
 import "./GetAppointmentsByPatient.css";
 import { Spinner } from "../../Spinner/Spinner";
+import { Pagination } from "@mui/material";
 
 export function GetAppointmentsByPatient() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(3);
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
   const appointments = useSelector((state) => state.patients.appointments);
   const dispatch = useDispatch();
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/appointment/get-appointments-by-patients/${id}`,
+      `http://localhost:5000/api/appointment/get-appointments-by-patients/${id}?page=${currentPage}&limit=${limit}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -29,28 +32,34 @@ export function GetAppointmentsByPatient() {
           setMessage(data.message);
         } else {
           setLoading(false);
+          setMessage(null);
           dispatch(getAppointments(data));
         }
       })
       .catch((err) => console.log(err));
-  }, [id, token, dispatch]);
+  }, [id, token, dispatch, currentPage, limit]);
 
   if (loading) {
     return <Spinner />;
   }
+
+  const handlePageChange = (e, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <>
       <div className="title-get-appointments-by-patient">
         <h1>Turnos por pacientes</h1>
       </div>
-      <section className="appointments">
-        {message ? (
-          <div className="message">
-            <h1>{message}</h1>
-          </div>
-        ) : (
-          appointments.map((appointment) => (
+
+      {message ? (
+        <div className="message">
+          <h1>{message}</h1>
+        </div>
+      ) : (
+        <section className="appointments">
+          {appointments.map((appointment) => (
             <>
               <article className="appointment">
                 <div className="date-day-month-appointment">
@@ -69,9 +78,18 @@ export function GetAppointmentsByPatient() {
                 </div>
               </article>
             </>
-          ))
-        )}
-      </section>
+          ))}
+        </section>
+      )}
+
+      <div className="pagination">
+        <Pagination
+          count={5}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </div>
     </>
   );
 }

@@ -4,13 +4,15 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getAppointmentsByDoctor } from "../../../../features/doctorSlice";
 import "./GetAppointmentsByDoctor.css";
 import { Spinner } from "../../Spinner/Spinner";
-import { Button } from "@mui/material";
+import { Button, Pagination } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function GetAppointmentsByDoctor() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(3);
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
   const role = useSelector((state) => state.users.role);
@@ -21,7 +23,7 @@ export function GetAppointmentsByDoctor() {
   const navigate = useNavigate();
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/appointment/get-appointments-by-doctor/${id}`,
+      `http://localhost:5000/api/appointment/get-appointments-by-doctor/${id}?page=${currentPage}&limit=${limit}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -36,15 +38,20 @@ export function GetAppointmentsByDoctor() {
           setMessage(data.message);
         } else {
           setLoading(false);
+          setMessage(null);
           dispatch(getAppointmentsByDoctor(data));
         }
       })
       .catch((err) => console.log(err));
-  }, [token, id, dispatch]);
+  }, [token, id, dispatch, currentPage, limit]);
 
   if (loading) {
     return <Spinner />;
   }
+
+  const handlePageChange = (e, value) => {
+    setCurrentPage(value);
+  };
 
   const handleDelete = async (appointmentId) => {
     try {
@@ -59,6 +66,7 @@ export function GetAppointmentsByDoctor() {
         }
       );
       if (response.ok) {
+        setLoading(false);
         navigate("/");
       } else {
         const data = await response.json();
@@ -74,15 +82,16 @@ export function GetAppointmentsByDoctor() {
       <div className="title-get-appointments-by-doctor">
         <h1>Turnos por doctor</h1>
       </div>
-      <section className="appointments">
-        {message ? (
-          <>
-            <div className="message">
-              <h1>{message}</h1>
-            </div>
-          </>
-        ) : (
-          appointments.map((appointment) => (
+
+      {message ? (
+        <>
+          <div className="message">
+            <h1>{message}</h1>
+          </div>
+        </>
+      ) : (
+        <section className="appointments">
+          {appointments.map((appointment) => (
             <>
               <article className="appointment">
                 <div className="date-day-month-appointment">
@@ -92,7 +101,7 @@ export function GetAppointmentsByDoctor() {
                     <strong> {appointment.date}</strong> hrs. <br />
                     Estatus:
                     <strong> {appointment.status}</strong>
-                    {role === "admin" && appointment.status !== "reserved" ? (
+                    {role === "admin" && appointment.status !== "Reservado" ? (
                       <>
                         <div className="btn">
                           <Button>
@@ -107,14 +116,36 @@ export function GetAppointmentsByDoctor() {
                           </Button>
                         </div>
                       </>
+                    ) : role === "admin" &&
+                      appointment.status === "Reservado" ? (
+                      <>
+                        <div className="info-patient-appointment-by-doctor">
+                          <h1>
+                            Paciente:{" "}
+                            <strong>
+                              {appointment.patient.lastName},{" "}
+                              {appointment.patient.name}
+                            </strong>
+                          </h1>
+                        </div>
+                      </>
                     ) : null}
                   </h1>
                 </div>
               </article>
             </>
-          ))
-        )}
-      </section>
+          ))}
+        </section>
+      )}
+
+      <div className="pagination">
+        <Pagination
+          count={5}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </div>
       <ToastContainer />
     </>
   );

@@ -108,7 +108,7 @@ export function Login() {
             </Button>
           </div>
         </Link>
-        <Link to="/forgot-password">
+        <Link to="/olvidar-contraseña">
           <div className="btn-login-signup">
             <Button variant="outlined" href="#outlined-buttons">
               ¿Olvidaste tu contraseña?

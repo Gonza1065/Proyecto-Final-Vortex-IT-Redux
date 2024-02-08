@@ -4,16 +4,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCancelations } from "../../../../features/patientSlice";
 import { Spinner } from "../../Spinner/Spinner";
+import { Pagination } from "@mui/material";
 export function GetCancelations() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(3);
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const cancelations = useSelector((state) => state.patients.cancelations);
   useEffect(() => {
     fetch(
-      `http://localhost:5000/api/appointment/all-cancelations-by-patient/${id}`,
+      `http://localhost:5000/api/appointment/all-cancelations-by-patient/${id}?page=${currentPage}&limit=${limit}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -32,26 +35,31 @@ export function GetCancelations() {
         }
       })
       .catch((err) => console.log(err));
-  }, [id, token, dispatch]);
+  }, [id, token, dispatch, currentPage, limit]);
 
   if (loading) {
     return <Spinner />;
   }
+
+  const handlePageChange = (e, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <>
       <div className="title-cancelations">
         <h1>Cancelaciones</h1>
       </div>
-      <section className="appointments">
-        {message ? (
-          <>
-            <div className="message">
-              <h1>{message}</h1>
-            </div>
-          </>
-        ) : (
-          cancelations.map((cancelation) => (
+
+      {message ? (
+        <>
+          <div className="message">
+            <h1>{message}</h1>
+          </div>
+        </>
+      ) : (
+        <section className="appointments">
+          {cancelations.map((cancelation) => (
             <>
               <article className="appointment">
                 <div className="date-day-month-appointment">
@@ -78,9 +86,18 @@ export function GetCancelations() {
                 </div>
               </article>
             </>
-          ))
-        )}
-      </section>
+          ))}
+        </section>
+      )}
+
+      <div className="pagination">
+        <Pagination
+          count={5}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </div>
     </>
   );
 }

@@ -11,3 +11,7 @@
 .btn-update-delete-appointment button a {
   color: black;
 }
+.info-patient-appointment-by-doctor h1 {
+  margin-top: 5px;
+  font-size: 20px;
+}

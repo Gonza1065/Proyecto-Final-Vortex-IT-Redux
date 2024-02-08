@@ -12,14 +12,10 @@ export const doctorSlice = createSlice({
     getDoctors: (state, action) => {
       state.doctors = action.payload;
     },
-    updateDoctor: (state, action) => {
-      state.doctors = action.payload;
-    },
     getAppointmentsByDoctor: (state, action) => {
       state.appointmentsByDoctor = action.payload;
     },
   },
 });
 
-export const { getDoctors, updateDoctor, getAppointmentsByDoctor } =
-  doctorSlice.actions;
+export const { getDoctors, getAppointmentsByDoctor } = doctorSlice.actions;

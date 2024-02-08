@@ -16,6 +16,7 @@ export function SeeDetailsDoctor() {
   const userId = useSelector((state) => state.users.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/appointment/get-appointments-by-doctor/${id}`,
@@ -33,6 +34,7 @@ export function SeeDetailsDoctor() {
           setMessage(data.message);
         } else {
           setLoading(false);
+          setMessage(null);
           dispatch(getAppointmentsByDoctor(data));
         }
       })
@@ -88,58 +90,59 @@ export function SeeDetailsDoctor() {
       </div>
       <section>
         <ul className="appointments-by-doctor">
-          {appointments.map((appointment) => (
+          {message ? (
             <>
-              {appointment.status === "reserved" ? (
-                <li>
-                  {appointment.patient?.lastName}, {appointment.patient?.name},
-                  <strong> {appointment.day}</strong>/
-                  <strong>{appointment.month}</strong>,
-                  <strong> {appointment.date}</strong> hrs.
-                  {appointment.patient?._id === userId ? (
-                    <div className="btn-cancel-reserve-appointment">
-                      <Button>
-                        <Link
-                          onClick={() =>
-                            cancelAppointment(userId, appointment._id)
-                          }
-                        >
-                          Cancelar Turno
-                        </Link>
-                      </Button>
-                    </div>
-                  ) : null}
-                </li>
-              ) : appointment.status === "available" ? (
-                <>
-                  <li>
-                    <strong>{appointment.day}</strong>/
-                    <strong>{appointment.month}</strong>,{" "}
-                    <strong>{appointment.date}</strong> hrs.
-                    <div className="btn-cancel-reserve-appointment">
-                      <Button>
-                        <Link
-                          onClick={() =>
-                            reserveAppointment(userId, appointment._id)
-                          }
-                        >
-                          Reservar Turno
-                        </Link>
-                      </Button>
-                    </div>
-                  </li>
-                </>
-              ) : null}
+              <div className="message">
+                <h1>{message}</h1>
+              </div>
             </>
-          ))}
+          ) : (
+            appointments.map((appointment) => (
+              <>
+                {appointment.status === "Reservado" ? (
+                  <li>
+                    {appointment.patient?.lastName}, {appointment.patient?.name}
+                    ,<strong> {appointment.day}</strong>/
+                    <strong>{appointment.month}</strong>,
+                    <strong> {appointment.date}</strong> hrs.
+                    {appointment.patient?._id === userId ? (
+                      <div className="btn-cancel-reserve-appointment">
+                        <Button>
+                          <Link
+                            onClick={() =>
+                              cancelAppointment(userId, appointment._id)
+                            }
+                          >
+                            Cancelar Turno
+                          </Link>
+                        </Button>
+                      </div>
+                    ) : null}
+                  </li>
+                ) : appointment.status === "Habilitado" ? (
+                  <>
+                    <li>
+                      <strong>{appointment.day}</strong>/
+                      <strong>{appointment.month}</strong>,{" "}
+                      <strong>{appointment.date}</strong> hrs.
+                      <div className="btn-cancel-reserve-appointment">
+                        <Button>
+                          <Link
+                            onClick={() =>
+                              reserveAppointment(userId, appointment._id)
+                            }
+                          >
+                            Reservar Turno
+                          </Link>
+                        </Button>
+                      </div>
+                    </li>
+                  </>
+                ) : null}
+              </>
+            ))
+          )}
         </ul>
-        {message && (
-          <>
-            <div className="message">
-              <h1>{message}</h1>
-            </div>
-          </>
-        )}
       </section>
     </>
   );

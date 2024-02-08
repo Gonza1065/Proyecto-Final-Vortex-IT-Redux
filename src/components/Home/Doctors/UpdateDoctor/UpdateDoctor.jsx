@@ -12,7 +12,6 @@ export function UpdateDoctor() {
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
-    specialty: "",
   });
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
@@ -35,6 +34,9 @@ export function UpdateDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.lastName || !formData.name) {
+      return toast.error("Todos los campos son requeridos");
+    }
     const response = await fetch(
       `http://localhost:5000/api/doctors/update-doctor/${id}`,
       {
@@ -47,6 +49,7 @@ export function UpdateDoctor() {
       }
     );
     if (response.ok) {
+      toast.success("Doctor actualizado");
       navigate("/ver-doctores");
     } else {
       const data = await response.json();
@@ -85,16 +88,9 @@ export function UpdateDoctor() {
           value={formData.lastName}
           onChange={handleChange}
         />
-        <input
-          type="text"
-          placeholder="Especialidad"
-          name="specialty"
-          value={formData.specialty}
-          onChange={handleChange}
-        />
         <div className="btn-update-doctor">
           <Button variant="text" type="submit">
-            Update
+            Actualizar Doctor
           </Button>
         </div>
       </form>

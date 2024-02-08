@@ -1,9 +1,8 @@
 .specialties {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(3, 33.3%);
   text-align: center;
   align-items: center;
-  height: 80vh;
 }
 .specialty {
   background-color: aquamarine;
@@ -11,4 +10,14 @@
   border-radius: 15px;
   font-family: "Roboto", sans-serif;
   padding: 15px;
+}
+.btns-update-delete {
+  display: flex;
+  justify-content: center;
+}
+.btn-delete a {
+  color: black;
+}
+.btn-delete a svg {
+  height: 30px;
 }

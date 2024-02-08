@@ -7,33 +7,47 @@ import "./GetDoctors.css";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner/Spinner";
 import { motion } from "framer-motion";
+import Pagination from "@mui/material/Pagination";
+import { NavBar } from "../../NavBar/NavBar";
+
 export function GetDoctors() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(3);
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const doctors = useSelector((state) => state.doctors.doctors);
   const role = useSelector((state) => state.users.role);
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:5000/api/doctors", {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
-        },
-      })
+      fetch(
+        `http://localhost:5000/api/doctors?page=${currentPage}&limit=${limit}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.message) {
+            setLoading(false);
             setMessage(data.message);
           } else {
             setLoading(false);
+            setMessage(null);
             dispatch(getDoctors(data));
           }
         })
         .catch((err) => console.log(err));
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, currentPage, limit]);
+
+  const handlePageChange = (e, value) => {
+    setCurrentPage(value);
+  };
 
   if (loading) {
     return <Spinner />;
@@ -41,6 +55,7 @@ export function GetDoctors() {
 
   return (
     <>
+      <NavBar />
       {message ? (
         <div className="message">
           <h1>{message}</h1>
@@ -89,6 +104,14 @@ export function GetDoctors() {
           ))}
         </section>
       )}
+      <div className="pagination">
+        <Pagination
+          count={5}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </div>
     </>
   );
 }
