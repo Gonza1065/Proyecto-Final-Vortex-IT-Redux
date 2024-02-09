@@ -16,9 +16,7 @@ export function Login() {
     email: "",
     password: "",
   });
-
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {

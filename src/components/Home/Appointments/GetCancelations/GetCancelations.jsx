@@ -14,6 +14,7 @@ export function GetCancelations() {
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const cancelations = useSelector((state) => state.patients.cancelations);
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/appointment/all-cancelations-by-patient/${id}?page=${currentPage}&limit=${limit}`,
@@ -50,7 +51,6 @@ export function GetCancelations() {
       <div className="title-cancelations">
         <h1>Cancelaciones</h1>
       </div>
-
       {message ? (
         <>
           <div className="message">
@@ -89,7 +89,6 @@ export function GetCancelations() {
           ))}
         </section>
       )}
-
       <div className="pagination">
         <Pagination
           count={5}

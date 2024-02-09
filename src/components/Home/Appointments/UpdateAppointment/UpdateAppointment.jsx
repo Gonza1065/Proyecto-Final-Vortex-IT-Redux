@@ -46,7 +46,7 @@ export function UpdateAppointment() {
         }
       );
       if (response.ok) {
-        navigate("/");
+        navigate("/ver-doctores");
       } else {
         const data = await response.json();
         const { message } = data;

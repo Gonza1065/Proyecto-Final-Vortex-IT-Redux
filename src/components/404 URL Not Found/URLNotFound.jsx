@@ -5,8 +5,9 @@ export function URLNotFound() {
     <>
       <motion.div
         className="url-not-found"
-        animate={{ rotate: [0, 90, 180, 360] }}
-        transition={{ duration: 1.2, ease: "linear" }}
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 300 }}
       >
         <h1>
           <span>4</span>0<span>4</span>

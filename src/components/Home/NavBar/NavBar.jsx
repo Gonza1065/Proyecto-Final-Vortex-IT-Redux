@@ -7,6 +7,7 @@ export function NavBar() {
   const role = useSelector((state) => state.users.role);
   const id = useSelector((state) => state.users.id);
   const dispatch = useDispatch();
+
   return (
     <>
       <header>

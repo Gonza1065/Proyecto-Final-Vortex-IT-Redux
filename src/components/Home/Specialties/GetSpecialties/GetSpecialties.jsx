@@ -20,6 +20,7 @@ export function GetSpecialties() {
   const role = useSelector((state) => state.users.role);
   const dispatch = useDispatch();
   const specialties = useSelector((state) => state.specialties.specialties);
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/specialty?page=${currentPage}&limit=${limit}`,
@@ -55,7 +56,6 @@ export function GetSpecialties() {
   return (
     <>
       <NavBar />
-
       {message ? (
         <div className="message">
           <h1>{message}</h1>
@@ -82,7 +82,6 @@ export function GetSpecialties() {
           ))}
         </section>
       )}
-
       <div className="pagination">
         <Pagination
           count={5}

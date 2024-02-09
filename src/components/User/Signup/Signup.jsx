@@ -11,6 +11,7 @@ export function Signup() {
     password: "",
     role: "",
   });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

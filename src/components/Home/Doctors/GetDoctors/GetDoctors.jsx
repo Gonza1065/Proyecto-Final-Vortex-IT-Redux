@@ -9,16 +9,22 @@ import { Spinner } from "../../Spinner/Spinner";
 import { motion } from "framer-motion";
 import Pagination from "@mui/material/Pagination";
 import { NavBar } from "../../NavBar/NavBar";
+import { getSpecialties } from "../../../../features/specialtySlice";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export function GetDoctors() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(3);
+  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const doctors = useSelector((state) => state.doctors.doctors);
   const role = useSelector((state) => state.users.role);
+  const specialties = useSelector((state) => state.specialties.specialties);
+
   useEffect(() => {
     if (token) {
       fetch(
@@ -45,9 +51,32 @@ export function GetDoctors() {
     }
   }, [dispatch, token, currentPage, limit]);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/api/specialty", {
+      headers: { "Content-Type": "application/json", "x-access-token": token },
+    })
+      .then((res) => res.json())
+      .then((data) => dispatch(getSpecialties(data)))
+      .catch((err) => console.log(err));
+  }, [token, dispatch]);
+
   const handlePageChange = (e, value) => {
     setCurrentPage(value);
   };
+
+  const handleSpecialtyChange = (event) => {
+    setSelectedSpecialty(event.target.value);
+  };
+
+  const handleWithoutFilter = () => {
+    setSelectedSpecialty(false);
+  };
+
+  const filteredDoctors = selectedSpecialty
+    ? doctors.filter(
+        (doctor) => doctor.specialty.specialty === selectedSpecialty
+      )
+    : doctors;
 
   if (loading) {
     return <Spinner />;
@@ -61,48 +90,113 @@ export function GetDoctors() {
           <h1>{message}</h1>
         </div>
       ) : (
-        <section className="cards-doctors">
-          {doctors.map((doctor) => (
-            <>
-              <motion.article
-                className="card-doctor"
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300 }}
+        <>
+          <article className="filter-doctors">
+            <FormControl>
+              <InputLabel id="specialty-select-label">Especialidad</InputLabel>
+              <Select
+                labelId="specialty-select-label"
+                id="specialty-select"
+                value={selectedSpecialty}
+                onChange={handleSpecialtyChange}
+                style={{
+                  width: "150px",
+                  border: "3px solid #088a96",
+                }}
               >
-                <div className="doctor-name">
-                  <h1>{doctor.name}</h1>
-                </div>
-                <div className="doctor-last-name">
-                  <h1>{doctor.lastName}</h1>
-                </div>
-                <div className="doctor-specialty">
-                  <h1>{doctor.specialty.specialty}</h1>
-                </div>
-                {role === "admin" ? (
+                {specialties.map((specialty) => (
+                  <MenuItem key={specialty._id} value={specialty.specialty}>
+                    {specialty.specialty}
+                  </MenuItem>
+                ))}
+                <MenuItem onClick={handleWithoutFilter}>Sin filtrar</MenuItem>
+              </Select>
+            </FormControl>
+          </article>
+          <section className="cards-doctors">
+            {filteredDoctors
+              ? filteredDoctors.map((doctor) => (
                   <>
-                    <div className="btn-update">
-                      <Link to={`/actualizar-doctor/${doctor._id}`}>
-                        <FontAwesomeIcon icon={faPencil} />
-                      </Link>
-                      <Link to={`/ver-turnos-doctor/${doctor._id}`}>
-                        <FontAwesomeIcon icon={faEye} />
-                      </Link>
-                    </div>
+                    <motion.article
+                      className="card-doctor"
+                      initial={{ y: 100, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="doctor-name">
+                        <h1>{doctor.name}</h1>
+                      </div>
+                      <div className="doctor-last-name">
+                        <h1>{doctor.lastName}</h1>
+                      </div>
+                      <div className="doctor-specialty">
+                        <h1>{doctor.specialty.specialty}</h1>
+                      </div>
+                      {role === "admin" ? (
+                        <>
+                          <div className="btn-update">
+                            <Link to={`/actualizar-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faPencil} />
+                            </Link>
+                            <Link to={`/ver-turnos-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faEye} />
+                            </Link>
+                          </div>
+                        </>
+                      ) : role === "patient" ? (
+                        <>
+                          <div className="btn-see-detail-doctor">
+                            <Link to={`/ver-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faEye} />
+                            </Link>
+                          </div>
+                        </>
+                      ) : null}
+                    </motion.article>
                   </>
-                ) : role === "patient" ? (
+                ))
+              : doctors.map((doctor) => (
                   <>
-                    <div className="btn-see-detail-doctor">
-                      <Link to={`/ver-doctor/${doctor._id}`}>
-                        <FontAwesomeIcon icon={faEye} />
-                      </Link>
-                    </div>
+                    <motion.article
+                      className="card-doctor"
+                      initial={{ y: 100, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <div className="doctor-name">
+                        <h1>{doctor.name}</h1>
+                      </div>
+                      <div className="doctor-last-name">
+                        <h1>{doctor.lastName}</h1>
+                      </div>
+                      <div className="doctor-specialty">
+                        <h1>{doctor.specialty.specialty}</h1>
+                      </div>
+                      {role === "admin" ? (
+                        <>
+                          <div className="btn-update">
+                            <Link to={`/actualizar-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faPencil} />
+                            </Link>
+                            <Link to={`/ver-turnos-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faEye} />
+                            </Link>
+                          </div>
+                        </>
+                      ) : role === "patient" ? (
+                        <>
+                          <div className="btn-see-detail-doctor">
+                            <Link to={`/ver-doctor/${doctor._id}`}>
+                              <FontAwesomeIcon icon={faEye} />
+                            </Link>
+                          </div>
+                        </>
+                      ) : null}
+                    </motion.article>
                   </>
-                ) : null}
-              </motion.article>
-            </>
-          ))}
-        </section>
+                ))}
+          </section>
+        </>
       )}
       <div className="pagination">
         <Pagination

@@ -15,6 +15,7 @@ export function GetAppointmentsByPatient() {
   const token = useSelector((state) => state.users.token);
   const appointments = useSelector((state) => state.patients.appointments);
   const dispatch = useDispatch();
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/appointment/get-appointments-by-patients/${id}?page=${currentPage}&limit=${limit}`,

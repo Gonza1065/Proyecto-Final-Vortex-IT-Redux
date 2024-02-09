@@ -10,6 +10,7 @@ export function ResetPassword() {
   });
   const { token } = useParams();
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

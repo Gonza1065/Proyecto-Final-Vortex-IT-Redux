@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export function AddAppointment() {
   const [formData, setFormData] = useState({
+    name: "",
+    lastName: "",
     doctorSpecialty: "",
     date: "",
     day: "",
@@ -54,6 +56,20 @@ export function AddAppointment() {
         <h1>Añadir turno</h1>
       </div>
       <form className="form-add-appointment" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Nombre del doctor"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Apellido del doctor"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+        />
         <input
           type="text"
           placeholder="Especialidad del doctor"

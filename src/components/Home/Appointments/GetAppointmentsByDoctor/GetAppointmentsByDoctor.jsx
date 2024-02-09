@@ -21,6 +21,7 @@ export function GetAppointmentsByDoctor() {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/appointment/get-appointments-by-doctor/${id}?page=${currentPage}&limit=${limit}`,
@@ -67,7 +68,7 @@ export function GetAppointmentsByDoctor() {
       );
       if (response.ok) {
         setLoading(false);
-        navigate("/");
+        navigate("/ver-doctores");
       } else {
         const data = await response.json();
         const { message } = data;
@@ -77,6 +78,7 @@ export function GetAppointmentsByDoctor() {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="title-get-appointments-by-doctor">

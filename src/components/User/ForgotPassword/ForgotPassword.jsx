@@ -1,7 +1,7 @@
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import "./ForgotPassword.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,6 @@ export function ForgotPassword() {
   const [formData, setFormData] = useState({
     email: "",
   });
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -58,7 +57,7 @@ export function ForgotPassword() {
     >
       <div className="header-users">
         <Typography variant="h5" gutterBottom>
-          Registro de Usuario
+          Recuperar Contraseña
         </Typography>
         <FontAwesomeIcon icon={faKey} />
       </div>
@@ -79,6 +78,20 @@ export function ForgotPassword() {
           <p>Ingrese su mail para poder recuperar la contraseña</p>
         </div>
       </form>
+      <Link to="/login">
+        <div className="btn-login-signup">
+          <Button variant="outlined" href="#outlined-buttons">
+            ¿Ya tienes una cuenta?
+          </Button>
+        </div>
+      </Link>
+      <Link to="/signup">
+        <div className="btn-login-signup">
+          <Button variant="outlined" href="#outlined-buttons">
+            ¿No tienes una cuenta?
+          </Button>
+        </div>
+      </Link>
       <ToastContainer />
     </Paper>
   );

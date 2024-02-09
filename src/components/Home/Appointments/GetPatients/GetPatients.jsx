@@ -16,6 +16,7 @@ export function GetPatients() {
   const token = useSelector((state) => state.users.token);
   const patients = useSelector((state) => state.patients.patients);
   const dispatch = useDispatch();
+
   useEffect(() => {
     fetch(
       `http://localhost:5000/api/users/patients?page=${currentPage}&limit=${limit}`,
@@ -87,7 +88,6 @@ export function GetPatients() {
           ))}
         </section>
       )}
-
       <div className="pagination">
         <Pagination
           count={5}
