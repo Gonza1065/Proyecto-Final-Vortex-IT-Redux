@@ -29,6 +29,7 @@ export function SeeDetailsDoctor() {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.message) {
           setLoading(false);
           setMessage(data.message);
@@ -99,7 +100,8 @@ export function SeeDetailsDoctor() {
           ) : (
             appointments.map((appointment) => (
               <>
-                {appointment.status === "Reservado" ? (
+                {appointment.status === "Reservado" &&
+                appointment.patient._id === userId ? (
                   <li>
                     {appointment.patient?.lastName}, {appointment.patient?.name}
                     ,<strong> {appointment.day}</strong>/

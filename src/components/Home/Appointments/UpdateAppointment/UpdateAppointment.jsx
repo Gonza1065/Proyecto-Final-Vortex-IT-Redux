@@ -3,6 +3,9 @@ import "./UpdateAppointment.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export function UpdateAppointment() {
   const [formData, setFormData] = useState({
     date: "",
@@ -50,7 +53,7 @@ export function UpdateAppointment() {
       } else {
         const data = await response.json();
         const { message } = data;
-        console.log(message);
+        toast.error(message);
       }
     } catch (err) {
       console.log(err);
@@ -93,6 +96,7 @@ export function UpdateAppointment() {
           <Button type="submit">Actualizar Turno</Button>
         </div>
       </form>
+      <ToastContainer />
     </>
   );
 }

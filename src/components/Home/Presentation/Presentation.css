@@ -31,6 +31,7 @@
   margin-bottom: 60px;
   box-shadow: 1px 5px 10px black;
   border-top: 3px solid yellow;
+  border-radius: 10px;
 }
 .card-presentation-1 h1 {
   padding: 10px;
@@ -42,6 +43,7 @@
   margin-bottom: 60px;
   box-shadow: 1px 5px 10px black;
   border-top: 3px solid red;
+  border-radius: 10px;
 }
 .card-presentation-2 h1 {
   padding: 10px;
@@ -53,6 +55,7 @@
   margin-bottom: 60px;
   box-shadow: 1px 5px 10px black;
   border-top: 3px solid rgb(255, 185, 119);
+  border-radius: 10px;
 }
 .card-presentation-3 h1 {
   padding: 10px;

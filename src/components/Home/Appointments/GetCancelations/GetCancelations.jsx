@@ -9,11 +9,12 @@ export function GetCancelations() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(3);
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
   const dispatch = useDispatch();
   const cancelations = useSelector((state) => state.patients.cancelations);
+
+  const limit = 3;
 
   useEffect(() => {
     fetch(
@@ -32,6 +33,7 @@ export function GetCancelations() {
           setMessage(data.message);
         } else {
           setLoading(false);
+          setMessage(null);
           dispatch(getCancelations(data));
         }
       })

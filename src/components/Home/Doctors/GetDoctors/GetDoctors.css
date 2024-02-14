@@ -39,8 +39,8 @@
 }
 .pagination {
   margin-bottom: 15px;
-  position: fixed;
-  left: 40%;
+  display: flex;
+  justify-content: center;
 }
 .filter-doctors {
   margin-left: 25px;

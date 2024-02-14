@@ -10,11 +10,13 @@ export function GetAppointmentsByPatient() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(3);
+
   const { id } = useParams();
   const token = useSelector((state) => state.users.token);
   const appointments = useSelector((state) => state.patients.appointments);
   const dispatch = useDispatch();
+
+  const limit = 6;
 
   useEffect(() => {
     fetch(

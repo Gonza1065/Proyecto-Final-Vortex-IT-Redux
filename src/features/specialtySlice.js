@@ -11,10 +11,7 @@ export const specialtySlice = createSlice({
     getSpecialties: (state, action) => {
       state.specialties = action.payload;
     },
-    updateSpecialty: (state, action) => {
-      state.specialties = action.payload;
-    },
   },
 });
 
-export const { getSpecialties, updateSpecialty } = specialtySlice.actions;
+export const { getSpecialties } = specialtySlice.actions;
