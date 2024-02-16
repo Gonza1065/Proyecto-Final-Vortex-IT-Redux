@@ -36,6 +36,9 @@ export function UpdateAppointment() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.date || !formData.day || !formData.month) {
+      return toast.error("Todos los campos son requeridos");
+    }
     try {
       const response = await fetch(
         `http://localhost:5000/api/appointment/update-appointment/${id}`,

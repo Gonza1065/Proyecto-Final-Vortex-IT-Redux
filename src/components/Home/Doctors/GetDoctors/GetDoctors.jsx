@@ -7,7 +7,6 @@ import "./GetDoctors.css";
 import { Link } from "react-router-dom";
 import { Spinner } from "../../Spinner/Spinner";
 import { motion } from "framer-motion";
-import Pagination from "@mui/material/Pagination";
 import { NavBar } from "../../NavBar/NavBar";
 import { getSpecialties } from "../../../../features/specialtySlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -15,7 +14,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 export function GetDoctors() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
 
   const token = useSelector((state) => state.users.token);
@@ -24,7 +23,6 @@ export function GetDoctors() {
   const role = useSelector((state) => state.users.role);
   const specialties = useSelector((state) => state.specialties.specialties);
 
-  const limit = 5;
   useEffect(() => {
     if (token) {
       fetch(`http://localhost:5000/api/doctors`, {
@@ -46,7 +44,7 @@ export function GetDoctors() {
         })
         .catch((err) => console.log(err));
     }
-  }, [dispatch, token, currentPage, limit]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/specialty`, {
@@ -58,11 +56,7 @@ export function GetDoctors() {
       .then((res) => res.json())
       .then((data) => dispatch(getSpecialties(data)))
       .catch((err) => console.log(err));
-  }, [token, dispatch, currentPage, limit]);
-
-  const handlePageChange = (e, value) => {
-    setCurrentPage(value);
-  };
+  }, [token, dispatch]);
 
   const handleSpecialtyChange = (e) => {
     setSelectedSpecialty(e.target.value);
